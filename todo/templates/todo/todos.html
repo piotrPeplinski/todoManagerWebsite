@@ -1,0 +1,48 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+<h1>Your Todos:</h1>
+
+<ul>
+    {% for todo in current %}
+
+    <li>
+        {% if todo.importance %}
+        <p><b>{{todo.title}}</b>
+            {% if todo.memo %}
+            - {{todo.memo|truncatechars:12}}
+            {% endif %}</p>
+
+        {% else %}
+        <p>{{todo.title}}
+            {% if todo.memo %}
+            - {{todo.memo|truncatechars:12}}
+            {% endif %}</p>
+        {% endif %}
+
+
+
+    </li>
+
+    {% endfor %}
+</ul>
+
+<h1>Completed:</h1>
+
+<ul>
+    {% for todo in done %}
+
+    <li>
+        {% if todo.importance %}
+        <p><b>{{todo.title}}</b></p>
+        <p>{{todo.completeDate}}</p>
+        {% else %}
+        <p>{{todo.title}}</p>
+        <p>{{todo.completeDate}}</p>
+        {% endif %}
+    </li>
+
+    {% endfor %}
+</ul>
+
+
+{% endblock content %}

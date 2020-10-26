@@ -3,10 +3,22 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.db import IntegrityError
+from .models import Todo
+
+# todos&others
 
 
 def home(request):
     return render(request, 'todo/home.html')
+
+
+def todos(request):
+    current = Todo.objects.filter(
+        user=request.user, completeDate__isnull=True)
+    done = Todo.objects.filter(user=request.user, completeDate__isnull=False)
+    return render(request, 'todo/todos.html', {'current': current, 'done': done})
+
+# auth
 
 
 def sign(request):
