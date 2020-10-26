@@ -60,6 +60,13 @@ def complete(request, todoId):
         todo.save()
         return redirect('todos')
 
+
+def deletetodo(request, todoId):
+    if request.method == 'POST':
+        todo = get_object_or_404(Todo, pk=todoId)
+        todo.delete()
+        return redirect('todos')
+
 # auth
 
 

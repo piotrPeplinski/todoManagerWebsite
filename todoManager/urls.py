@@ -25,6 +25,7 @@ urlpatterns = [
     path('todos/<int:todoId>', views.detail, name='detail'),
     path('create', views.create, name='create'),
     path('todos/<int:todoId>/complete', views.complete, name='complete'),
+    path('todos/<int:todoId>/delete', views.deletetodo, name='deletetodo'),
 
     # auth
     path('sign', views.sign, name='sign'),
