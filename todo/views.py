@@ -22,7 +22,7 @@ def todos(request):
 
 
 def detail(request, todoId):
-    todo = get_object_or_404(Todo, pk=todoId)
+    todo = get_object_or_404(Todo, pk=todoId, user=request.user)
     if request.method == 'GET':
         form = TodoForm(instance=todo)
         return render(request, 'todo/detail.html', {'todo': todo, 'form': form})
@@ -55,7 +55,7 @@ def create(request):
 
 def complete(request, todoId):
     if request.method == 'POST':
-        todo = get_object_or_404(Todo, pk=todoId)
+        todo = get_object_or_404(Todo, pk=todoId, user=request.user)
         todo.completeDate = timezone.now()
         todo.save()
         return redirect('todos')
@@ -63,7 +63,7 @@ def complete(request, todoId):
 
 def deletetodo(request, todoId):
     if request.method == 'POST':
-        todo = get_object_or_404(Todo, pk=todoId)
+        todo = get_object_or_404(Todo, pk=todoId, user=request.user)
         todo.delete()
         return redirect('todos')
 
