@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -17,6 +17,11 @@ def todos(request):
         user=request.user, completeDate__isnull=True)
     done = Todo.objects.filter(user=request.user, completeDate__isnull=False)
     return render(request, 'todo/todos.html', {'current': current, 'done': done})
+
+
+def detail(request, todoId):
+    todo = get_object_or_404(Todo, pk=todoId)
+    return render(request, 'todo/detail.html', {'todo': todo})
 
 # auth
 

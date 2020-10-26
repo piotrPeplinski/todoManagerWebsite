@@ -22,6 +22,7 @@ urlpatterns = [
     # todos
     path('', views.home, name='home'),
     path('todos', views.todos, name='todos'),
+    path('todos/<int:todoId>', views.detail, name='detail'),
 
     # auth
     path('sign', views.sign, name='sign'),

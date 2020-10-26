@@ -1,26 +1,23 @@
 {% extends 'todo/base.html' %}
 {% block content %}
-<h1>Your Todos:</h1>
+<h1>Current Todos:</h1>
 
 <ul>
     {% for todo in current %}
 
     <li>
         {% if todo.importance %}
-        <p><b>{{todo.title}}</b>
+        <p><b><a href="{% url 'detail' todo.id %}">{{todo.title}}</a></b>
             {% if todo.memo %}
             - {{todo.memo|truncatechars:12}}
             {% endif %}</p>
 
         {% else %}
-        <p>{{todo.title}}
+        <p><a href="{% url 'detail' todo.id %}">{{todo.title}}</a>
             {% if todo.memo %}
             - {{todo.memo|truncatechars:12}}
             {% endif %}</p>
         {% endif %}
-
-
-
     </li>
 
     {% endfor %}
@@ -33,10 +30,10 @@
 
     <li>
         {% if todo.importance %}
-        <p><b>{{todo.title}}</b></p>
+        <p><b><a href="{% url 'detail' todo.id %}">{{todo.title}}</a></b></p>
         <p>{{todo.completeDate}}</p>
         {% else %}
-        <p>{{todo.title}}</p>
+        <p><a href="{% url 'detail' todo.id %}">{{todo.title}}</a></p>
         <p>{{todo.completeDate}}</p>
         {% endif %}
     </li>
