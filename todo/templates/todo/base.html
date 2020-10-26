@@ -6,9 +6,12 @@
 </form>
 </p>
 <a href="{% url 'todos' %}">Todos</a>
+<a href="{% url 'create' %}">Create Todos</a>
+
 {% else %}
 <a href="{% url 'sign' %}">Sign Up</a>
 <a href="{% url 'log' %}">Log In</a>
+
 {% endif %}
 
 
