@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.db import IntegrityError
 from .models import Todo
 from .forms import TodoForm
+from django.utils import timezone
 
 # todos&others
 
@@ -52,7 +53,15 @@ def create(request):
                           {'form': TodoForm(), 'error': error})
 
 
+def complete(request, todoId):
+    if request.method == 'POST':
+        todo = get_object_or_404(Todo, pk=todoId)
+        todo.completeDate = timezone.now()
+        todo.save()
+        return redirect('todos')
+
 # auth
+
 
 def sign(request):
     if request.method == 'GET':
