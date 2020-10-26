@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from .models import Todo
 from .forms import TodoForm
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 # todos&others
 
@@ -14,6 +15,7 @@ def home(request):
     return render(request, 'todo/home.html')
 
 
+@login_required
 def todos(request):
     current = Todo.objects.filter(
         user=request.user, completeDate__isnull=True)
@@ -21,6 +23,7 @@ def todos(request):
     return render(request, 'todo/todos.html', {'current': current, 'done': done})
 
 
+@login_required
 def detail(request, todoId):
     todo = get_object_or_404(Todo, pk=todoId, user=request.user)
     if request.method == 'GET':
@@ -37,6 +40,7 @@ def detail(request, todoId):
                           {'todo': todo, 'form': TodoForm(instance=todo), 'error': error})
 
 
+@login_required
 def create(request):
     if request.method == 'GET':
         return render(request, 'todo/create.html', {'form': TodoForm()})
@@ -53,6 +57,7 @@ def create(request):
                           {'form': TodoForm(), 'error': error})
 
 
+@login_required
 def complete(request, todoId):
     if request.method == 'POST':
         todo = get_object_or_404(Todo, pk=todoId, user=request.user)
@@ -61,6 +66,7 @@ def complete(request, todoId):
         return redirect('todos')
 
 
+@login_required
 def deletetodo(request, todoId):
     if request.method == 'POST':
         todo = get_object_or_404(Todo, pk=todoId, user=request.user)
@@ -108,6 +114,7 @@ def log(request):
                           {'form': AuthenticationForm(), 'error': error})
 
 
+@login_required
 def logoutuser(request):
     if request.method == 'POST':
         logout(request)
