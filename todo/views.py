@@ -22,7 +22,18 @@ def todos(request):
 
 def detail(request, todoId):
     todo = get_object_or_404(Todo, pk=todoId)
-    return render(request, 'todo/detail.html', {'todo': todo})
+    if request.method == 'GET':
+        form = TodoForm(instance=todo)
+        return render(request, 'todo/detail.html', {'todo': todo, 'form': form})
+    else:
+        form = TodoForm(request.POST, instance=todo)
+        if form.is_valid():
+            todo.save()
+            return redirect('todos')
+        else:
+            error = "Something went wrong. Try again."
+            return render(request, 'todo/detail.html',
+                          {'todo': todo, 'form': TodoForm(instance=todo), 'error': error})
 
 
 def create(request):
