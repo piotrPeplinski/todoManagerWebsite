@@ -13,7 +13,18 @@
         matters is what you do. We created this system to help you make the most out of all your <br>opportunities
         and
         live that life that matters most to you. Your new organized life awaits.</p>
-    <a href="{% url 'log' %}" class="btn-lg btn-primary">Start</a>
+        
+        {% if user.is_authenticated %}
+
+        <a href="{% url 'create' %}" class="btn-lg btn-primary">Start</a>
+
+        {% else %}
+
+        <a href="{% url 'log' %}" class="btn-lg btn-primary">Start</a>
+            
+        {% endif %}
+            
+    
 </div>
 
 {% endblock content %}
