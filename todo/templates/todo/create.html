@@ -1,23 +1,30 @@
 {% extends 'todo/base.html' %}
 {% block content %}
 
-<div class="container text-center">
-    <h1>Create Todo</h1>
-    <br>
-    <h3>{{error}}</h3>
-    <form method="POST">
-        <label>Title:</label>
-        <p>{{form.title}}</p>
-
-        <label>Memo:</label>
-        <p>{{form.memo}}</p>
-
-        <label>Important:</label>
-        {{form.importance}}
-        {% csrf_token %}
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
+        <h1>Create Todo</h1>
         <br>
-        <br>
-        <button class="btn btn-info" type="submit">Create</button>
-    </form>
+        <h3>{{error}}</h3>
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <textarea class="form-control" name="title" cols="38" rows="1" maxlength="100" required=""
+                    id="id_title"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="memo">Memo</label>
+                <textarea class="form-control" name="memo" cols="38" rows="4" id="id_memo"></textarea>
+                <small class="form-text text-muted">This field is not required</small>
+            </div>
+            <div class="form-group form-check">
+                <input class="form-check-input" type="checkbox" name="importance" id="id_importance">
+                <label for="importance">Important</label>
+            </div>
+
+            <button class="btn btn-info" type="submit">Create</button>
+            {% csrf_token %}
+        </form>
+    </div>
 </div>
 {% endblock %}
