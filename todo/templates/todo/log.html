@@ -1,12 +1,38 @@
 {% extends 'todo/base.html' %}
 {% block content %}
 
-<h1>Log In</h1>
-<h3>{{error}}</h3>
-<form method="POST">
-    {{form.as_p}}
-    {% csrf_token %}
-    <button type="submit">Log In</button>
-</form>
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-4 col-md-5 col-sm-5">
+        <h1>Log In</h1>
+
+        {% if error %}
+        <div class="alert alert-danger text-center mt-4" role="alert">
+            <h4>{{error}}</h4>
+        </div>
+        {% endif %}
+
+        <form method="POST" class="mt-4">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username"
+                    maxlength="150" required="" id="id_username" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" name="password" autofocus="" autocapitalize="none" autocomplete="password"
+                    maxlength="150" required="" id="id_password" class="form-control">
+            </div>
+
+            {% csrf_token %}
+            <button class="btn btn-primary" type="submit">Log In</button>
+        </form>
+        <hr>
+        <div class="text-center">
+            <p>Need an account? <a href="{% url 'sign' %}">Sign up here</a></p>
+        </div>
+    </div>
+</div>
+
+
 
 {% endblock %}
