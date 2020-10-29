@@ -1,49 +1,58 @@
 {% extends 'todo/base.html' %}
 {% block content %}
 
-<div class="container text-center">
-    <h1>Current Todos:</h1>
-    <br>
-    <ul class="list-group">
-        {% for todo in current %}
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
 
-        <li class="list-group-item mx-auto" style="width:500px;height: 60px;padding: 18px;">
+        <h1 class="mt-5">{{current.count}} Current Todo{{current.count|pluralize}}</h1>
+
+        <ul class="list-group mt-4">
+            {% for todo in current %}
+
             {% if todo.importance %}
-            <p><b><a href="{% url 'detail' todo.id %}">{{todo.title}}</a></b>
+            <a class="list-group-item list-group-item-action list-group-item-warning" href="{% url 'detail' todo.id %}">
+                <b>{{todo.title}}</b>
                 {% if todo.memo %}
-                {{todo.memo|truncatechars:12}}</p>
-            {% endif %}
+                - {{todo.memo|truncatechars:12}}
+                {% endif %}
+            </a>
 
             {% else %}
-            <p><a href="{% url 'detail' todo.id %}">{{todo.title}}</a>
+            <a class="list-group-item list-group-item-action" href="{% url 'detail' todo.id %}">
+                <b>{{todo.title}}</b>
                 {% if todo.memo %}
-                {{todo.memo|truncatechars:12}}</p>
-            {% endif %}
-            {% endif %}
-        </li>
+                - {{todo.memo|truncatechars:12}}
+                {% endif %}
+                {% endif %}
+            </a>
+            {% endfor %}
+        </ul>
 
-        {% endfor %}
-    </ul>
-    <br>
-    <br>
+        <br>
 
-    <h1>Completed:</h1>
-    <br>
-    <ul class="list-group">
-        {% for todo in done %}
+        <h1 class="mt-5">{{done.count}} Completed Todo{{done.count|pluralize}}</h1>
 
-        <li class="list-group-item mx-auto" style="width:500px;height: 60px;padding: 18px;">
+        <ul class="list-group mt-4">
+            {% for todo in done %}
+
             {% if todo.importance %}
-            <p><b><a href="{% url 'detail' todo.id %}">{{todo.title}}</a></b>
-                on {{todo.completeDate|date:'j/m/Y, H:i'}}</p>
+            <a class="list-group-item list-group-item-action list-group-item-warning" href="{% url 'detail' todo.id %}">
+                <b>{{todo.title}}</b>
+                <small class="form-text text-muted">{{todo.completeDate|date:'j/m/Y, H:i'}}</small>
+            </a>
+
             {% else %}
-            <p><a href="{% url 'detail' todo.id %}">{{todo.title}}</a>
-                on {{todo.completeDate|date:'j/m/Y, H:i'}}</p>
+
+            <a class="list-group-item list-group-item-action" href="{% url 'detail' todo.id %}">
+                <b>{{todo.title}}</b><br>
+                <small class="form-text text-muted">{{todo.completeDate|date:'j/m/Y, H:i'}}</small> 
+            </a>
+
             {% endif %}
-        </li>
 
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
 
+    </div>
 </div>
 {% endblock content %}
