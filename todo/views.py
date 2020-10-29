@@ -18,8 +18,9 @@ def home(request):
 @login_required
 def todos(request):
     current = Todo.objects.filter(
-        user=request.user, completeDate__isnull=True)
-    done = Todo.objects.filter(user=request.user, completeDate__isnull=False)
+        user=request.user, completeDate__isnull=True).order_by("-createDate")
+    done = Todo.objects.filter(
+        user=request.user, completeDate__isnull=False).order_by("-completeDate")
     return render(request, 'todo/todos.html', {'current': current, 'done': done})
 
 
